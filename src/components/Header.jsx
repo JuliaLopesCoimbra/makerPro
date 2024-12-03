@@ -26,15 +26,15 @@ import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/
 
 
 const products = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
-  { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
-  { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
-  { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
+  { name: 'Lojas disponíveis', description: 'Tudo que você precisa para analisar a loja', href: '#', icon: ChartPieIcon },
+  { name: 'Engajamento', description: 'Fale direto com os recrutadores', href: '#', icon: CursorArrowRaysIcon },
+  { name: 'Segurança', description: 'Visualize o método de segurança do sistema', href: '#', icon: FingerPrintIcon },
+  { name: 'Integrations', description: 'Conecte com outras lojas', href: '#', icon: SquaresPlusIcon },
+  { name: 'Automatizações', description: 'Build com a IA', href: '#', icon: ArrowPathIcon },
 ]
 const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-  { name: 'Contact sales', href: '#', icon: PhoneIcon },
+  { name: 'Suporte', href: '#', icon: PlayCircleIcon },
+  { name: 'Contato', href: '#', icon: PhoneIcon },
 ]
  
 
@@ -120,9 +120,7 @@ export default function Header() {
           <a href="#" className="text-sm/6 font-semibold text-gray-700">
             Dashboard
           </a>
-          <a href="#" className="text-sm/6 font-semibold text-gray-700">
-            Marketplace
-          </a>
+      
           <a href="#" className="text-sm/6 font-semibold text-gray-700">
             Company
           </a>
