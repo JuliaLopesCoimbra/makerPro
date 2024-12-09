@@ -24,9 +24,9 @@ export default function Dashboard() {
   return (
     <>
       <Header />
-      <div className="bg-gray-50 py-24 sm:py-32">
+      <div className="bg-gray-50 py-24 sm:py-24">
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-          <p className="mx-auto mt-2 max-w-lg text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
+          <p className="mx-auto  max-w-lg text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
             Tudo que você precisa para analisar a loja
           </p>
           <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
