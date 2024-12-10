@@ -14,7 +14,7 @@ import Header from "../../components/Header";
 const videos = [
   {
     id: 1,
-    name: "Basic Tee",
+    name: "Basic Teeaa",
     marca: "Aventus",
     imageSrc:
       "https://static.vecteezy.com/ti/vetor-gratis/p1/1505014-video-player-icon-vetor.jpg",
