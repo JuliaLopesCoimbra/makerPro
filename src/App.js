@@ -14,9 +14,12 @@ function App() {
     <Router>
       <div>
         <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/section/:name" element={<Section />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element= {<Dashboard/>} />
-          <Route path="/section/:name" element={<Section/>}/>
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/section/:name" element={<Section />} />
           <Route path="/section-area" element={<SectionArea />} />
           <Route path="/section-details" element={<SectionDetails />} />
         </Routes>

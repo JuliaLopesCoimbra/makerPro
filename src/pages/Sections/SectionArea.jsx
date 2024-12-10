@@ -1,67 +1,77 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+  TransitionChild,
+} from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import Header from "../../components/Header";
 
-const area = [
+const videos = [
   {
     id: 1,
-    name: "22/12/2024",
+    name: "Basic Tee",
     marca: "Aventus",
     imageSrc:
-      "https://www.imagensempng.com.br/wp-content/uploads/2023/05/Icone-Reels-Instagram-Png.png",
+      "https://static.vecteezy.com/ti/vetor-gratis/p1/1505014-video-player-icon-vetor.jpg",
     imageAlt: "Front of men's Basic Tee in black.",
-    price: "1min 50seg",
-    
   },
   {
     id: 2,
-    name: "22/12/2024",
+    name: "Premium Tee",
     marca: "Aventus",
-   
+
     imageSrc:
-      "https://www.imagensempng.com.br/wp-content/uploads/2023/05/Icone-Reels-Instagram-Png.png",
+      "https://static.vecteezy.com/ti/vetor-gratis/p1/1505014-video-player-icon-vetor.jpg",
     imageAlt: "Front of men's Premium Tee in white.",
-    price: "1min 50seg",
-   
   },
   {
     id: 3,
-    name: "22/12/2024",
+    name: "Long Sleeve Tee",
     marca: "Aventus",
-  
+
     imageSrc:
-      "https://www.imagensempng.com.br/wp-content/uploads/2023/05/Icone-Reels-Instagram-Png.png",
+      "https://static.vecteezy.com/ti/vetor-gratis/p1/1505014-video-player-icon-vetor.jpg",
     imageAlt: "Front of men's Long Sleeve Tee in gray.",
-    price: "1min 50seg",
-    
   },
   {
     id: 4,
-    name: "22/12/2024",
+    name: "Hoodie",
     marca: "Aventus",
-  
+
     imageSrc:
-      "https://www.imagensempng.com.br/wp-content/uploads/2023/05/Icone-Reels-Instagram-Png.png",
+      "https://static.vecteezy.com/ti/vetor-gratis/p1/1505014-video-player-icon-vetor.jpg",
     imageAlt: "Front of men's Hoodie in blue.",
-    price: "1min 50seg",
-    
   },
-  // Add more areas as needed...
+  // Add more products as needed...
 ];
 
 const SectionArea = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const post = location.state;
-  const navigate = useNavigate();
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-
-  if (!post) {
+  if (!videos) {
     return <div className="text-center text-lg">Nenhum post selecionado.</div>;
   }
 
- 
-  const handleClick = (area) => {
-    navigate("/section-details", { state: { area, post } });
+  const openDialog = (product) => {
+    setSelectedProduct(product);
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setSelectedProduct(null);
+    setIsDialogOpen(false);
+  };
+  const handleClick = (videos) => {
+    navigate(`/section-details`);
   };
 
   return (
@@ -87,44 +97,44 @@ const SectionArea = () => {
         </div>
       </div>
 
-      {/* areas Section */}
+      {/* Products Section */}
       <div className="bg-white">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-           Videos
+            Videos
           </h2>
 
           <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {area.map((area) => (
+            {videos.map((product) => (
               <div
-                key={area.id}
+                key={product.id}
                 className="group relative"
-                onClick={() => handleClick(area)}
+                onClick={() => handleClick()}
               >
                 <div className="aspect-square w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75">
                   <img
-                    alt={area.imageAlt}
-                    src={area.imageSrc}
+                    alt={product.imageAlt}
+                    src={product.imageSrc}
                     className="h-full w-full object-cover object-center"
                   />
                 </div>
                 <div className="mt-4 flex justify-between">
                   <div>
                     <h3 className="text-sm text-gray-700">
-                      <a href={area.href}>
+                      <a href={product.href}>
                         <span
                           aria-hidden="true"
                           className="absolute inset-0"
                         ></span>
-                        {area.name}
+                        {product.name}
                       </a>
                     </h3>
                     <p className="mt-1 text-sm text-gray-500">
-                      {area.color}
+                      {product.color}
                     </p>
                   </div>
                   <p className="text-sm font-medium text-gray-900">
-                    {area.price}
+                    {product.price}
                   </p>
                 </div>
               </div>
@@ -132,8 +142,6 @@ const SectionArea = () => {
           </div>
         </div>
       </div>
-
-    
     </>
   );
 };
