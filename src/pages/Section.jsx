@@ -11,11 +11,11 @@ const Section = () => {
     {
       id: 1,
       title: "Inserção de dados",
-      href: "#",
-      description: "tirei fotos de blusas da renner",
+   
+      description: "descrição da renner",
       date: "Mar 16, 2020",
       datetime: "2020-03-16",
-      category: { title: "Maker", href: "#" },
+      category: { title: "walker", href: "#" },
       author: {
         name: "Junior ",
         role: "Co-Founder / Picbrand",
@@ -27,11 +27,11 @@ const Section = () => {
     {
       id: 2,
       title: "Inserção de dados",
-      href: "#",
+    
       description: "tirei foto de tenis da renner",
       date: "Mar 16, 2020",
       datetime: "2020-03-16",
-      category: { title: "Maker", href: "#" },
+      category: { title: "WALKER", href: "#" },
       author: {
         name: "Fernando",
         role: "dev Picbrand",
@@ -43,12 +43,12 @@ const Section = () => {
     {
       id: 1,
       title: 'Inserção de dados',
-      href: '#',
+    
       description:
         'tirei foto de calças da renner',
       date: 'Mar 16, 2020',
       datetime: '2020-03-16',
-      category: { title: 'Maker', href: '#' },
+      category: { title: 'walker', href: '#' },
       author: {
         name: 'Juliano',
         role: 'Co-Founder / CTO',
@@ -59,12 +59,10 @@ const Section = () => {
     },
   ];
 
-  if (!store) {
-    return <div className="text-center text-lg">Nenhuma loja selecionada.</div>;
-  }
+  
 
   const handleClick = (post) => {
-    navigate(`/section-details`, { state: post });
+    navigate(`/section-area`, { state: post });
   };
 
   return (

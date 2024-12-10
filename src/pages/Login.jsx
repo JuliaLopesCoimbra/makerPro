@@ -88,7 +88,7 @@ const Login = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
-            src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fbr.vexels.com%2Fpng-svg%2Fprevisualizar%2F224226%2Flogotipo-minimalista-da-casa&psig=AOvVaw1kjb8_ruNOz0EpjtpDpFf7&ust=1733279004123000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCNjtlNDFiooDFQAAAAAdAAAAABAE"
+            src="/img/LOGOMAKER.png"
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">

@@ -60,13 +60,16 @@ const products = [
 
 const SectionDetails = () => {
   const location = useLocation();
-  const post = location.state;
+  const { area, post } = location.state || {};  // Destructure and handle undefined state
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   if (!post) {
     return <div className="text-center text-lg">Nenhum post selecionado.</div>;
   }
+    // Safely access imageUrl
+    const imageUrl = post.author?.imageUrl;
+
 
   const openDialog = (product) => {
     setSelectedProduct(product);
