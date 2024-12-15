@@ -1,6 +1,8 @@
+//react
 import React from "react";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+//components
 import {
   Dialog,
   DialogBackdrop,
@@ -10,6 +12,7 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import Header from "../../components/Header";
+import { API_URL } from "../../services/api.ts";
 
 const products = [
   {
@@ -60,9 +63,39 @@ const products = [
 
 const SectionDetails = () => {
   const location = useLocation();
-  const { video, post } = location.state || {}; // Destructure and handle undefined state
+  const { video, post } = location.state || {};
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  // Estado para armazenar os dados da API
+  const [sessions, setSessions] = useState([]);
+  const [error, setError] = useState(null);
+  // Função para buscar os dados da API
+  const getStoreSessionDetails = async () => {
+    const token = localStorage.getItem("authToken"); // Recupera o token do LocalStorage
+    try {
+      const response = await fetch(`${API_URL}/Piece/Piece/1`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar dados: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSessions(data); // Salvar dados no estado
+    } catch (err) {
+      console.error("Erro ao buscar os dados:", err);
+      setError(err.message); // Salvar o erro no estado
+    }
+  };
+    // useEffect para carregar os dados ao montar o componente
+    useEffect(() => {
+      getStoreSessionDetails();
+    }, []);
 
   if (!post) {
     return <div className="text-center text-lg">Nenhum post selecionado.</div>;
