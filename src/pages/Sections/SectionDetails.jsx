@@ -26,7 +26,7 @@ const products = [
     id: 2,
     name: "Premium Tee",
     marca: "Aventus",
-   
+
     imageSrc:
       "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-02.jpg",
     imageAlt: "Front of men's Premium Tee in white.",
@@ -37,7 +37,7 @@ const products = [
     id: 3,
     name: "Long Sleeve Tee",
     marca: "Aventus",
-  
+
     imageSrc:
       "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-03.jpg",
     imageAlt: "Front of men's Long Sleeve Tee in gray.",
@@ -48,7 +48,7 @@ const products = [
     id: 4,
     name: "Hoodie",
     marca: "Aventus",
-  
+
     imageSrc:
       "https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-04.jpg",
     imageAlt: "Front of men's Hoodie in blue.",
@@ -60,16 +60,15 @@ const products = [
 
 const SectionDetails = () => {
   const location = useLocation();
-  const { area, post } = location.state || {};  // Destructure and handle undefined state
+  const { video, post } = location.state || {}; // Destructure and handle undefined state
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   if (!post) {
     return <div className="text-center text-lg">Nenhum post selecionado.</div>;
   }
-    // Safely access imageUrl
-    const imageUrl = post.author?.imageUrl;
-
+  // Safely access imageUrl
+  const imageUrl = post.author?.imageUrl;
 
   const openDialog = (product) => {
     setSelectedProduct(product);

@@ -1,17 +1,24 @@
-import React from "react";
+//react
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+//components
 import Header from "../components/Header";
+//services
+import { API_URL } from "../services/api.ts";
 
 const Section = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const store = location.state;
+  // Estado para armazenar os dados da API
+  const [sessions, setSessions] = useState([]);
+  const [error, setError] = useState(null);
 
   const posts = [
     {
       id: 1,
       title: "Inserção de dados",
-   
+
       description: "descrição da renner",
       date: "Mar 16, 2020",
       datetime: "2020-03-16",
@@ -27,7 +34,7 @@ const Section = () => {
     {
       id: 2,
       title: "Inserção de dados",
-    
+
       description: "tirei foto de tenis da renner",
       date: "Mar 16, 2020",
       datetime: "2020-03-16",
@@ -58,7 +65,34 @@ const Section = () => {
     },
   ];
 
-  
+  // Função para buscar os dados da API
+  const getStoreSession = async () => {
+    const token = localStorage.getItem("authToken"); // Recupera o token do LocalStorage
+    try {
+      const response = await fetch(`${API_URL}/StoreSession/StoreSession/1`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar dados: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSessions(data); // Salvar dados no estado
+    } catch (err) {
+      console.error("Erro ao buscar os dados:", err);
+      setError(err.message); // Salvar o erro no estado
+    }
+  };
+
+  // useEffect para carregar os dados ao montar o componente
+  useEffect(() => {
+    getStoreSession();
+  }, []);
 
   const handleClick = (post) => {
     navigate(`/section-area`, { state: post });

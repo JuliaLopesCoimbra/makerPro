@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState } from "react";
+
+//components
+import Header from "../../components/Header";
 import {
   Dialog,
   DialogBackdrop,
@@ -9,7 +11,8 @@ import {
   TransitionChild,
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import Header from "../../components/Header";
+//services
+import { API_URL } from "../../services/api.ts";
 
 const videos = [
   {
@@ -56,10 +59,38 @@ const SectionArea = () => {
   const post = location.state;
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  // Estado para armazenar os dados da API
+  const [sessions, setSessions] = useState([]);
+  const [error, setError] = useState(null);
 
-  if (!videos) {
-    return <div className="text-center text-lg">Nenhum post selecionado.</div>;
-  }
+  // Função para buscar os dados da API
+  const getStoreSessionArea = async () => {
+    const token = localStorage.getItem("authToken"); // Recupera o token do LocalStorage
+    try {
+      const response = await fetch(`${API_URL}/SessionFile/SessionFile/1`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erro ao buscar dados: ${response.status}`);
+      }
+
+      const data = await response.json();
+      setSessions(data); // Salvar dados no estado
+    } catch (err) {
+      console.error("Erro ao buscar os dados:", err);
+      setError(err.message); // Salvar o erro no estado
+    }
+  };
+
+  // useEffect para carregar os dados ao montar o componente
+  useEffect(() => {
+    getStoreSessionArea();
+  }, []);
 
   const openDialog = (product) => {
     setSelectedProduct(product);
@@ -70,8 +101,8 @@ const SectionArea = () => {
     setSelectedProduct(null);
     setIsDialogOpen(false);
   };
-  const handleClick = (videos) => {
-    navigate(`/section-details`);
+  const handleClick = (video) => {
+    navigate(`/section-details`, { state: { video, post } });
   };
 
   return (

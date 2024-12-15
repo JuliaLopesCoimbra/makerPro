@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogPanel,
@@ -12,7 +12,7 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
-} from '@headlessui/react'
+} from "@headlessui/react";
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -21,37 +21,76 @@ import {
   FingerPrintIcon,
   SquaresPlusIcon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
-
+} from "@heroicons/react/24/outline";
+import {
+  ChevronDownIcon,
+  PhoneIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/20/solid";
 
 const products = [
-  { name: 'Lojas disponíveis', description: 'Tudo que você precisa para analisar a loja', href: '#', icon: ChartPieIcon },
-  { name: 'Engajamento', description: 'Fale direto com os recrutadores', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Segurança', description: 'Visualize o método de segurança do sistema', href: '#', icon: FingerPrintIcon },
-  { name: 'Integrations', description: 'Conecte com outras lojas', href: '#', icon: SquaresPlusIcon },
-  { name: 'Automatizações', description: 'Build com a IA', href: '#', icon: ArrowPathIcon },
-]
+  {
+    name: "Lojas disponíveis",
+    description: "Tudo que você precisa para analisar a loja",
+    href: "#",
+    icon: ChartPieIcon,
+  },
+  {
+    name: "Engajamento",
+    description: "Fale direto com os recrutadores",
+    href: "#",
+    icon: CursorArrowRaysIcon,
+  },
+  {
+    name: "Segurança",
+    description: "Visualize o método de segurança do sistema",
+    href: "#",
+    icon: FingerPrintIcon,
+  },
+  {
+    name: "Integrations",
+    description: "Conecte com outras lojas",
+    href: "#",
+    icon: SquaresPlusIcon,
+  },
+  {
+    name: "Automatizações",
+    description: "Build com a IA",
+    href: "#",
+    icon: ArrowPathIcon,
+  },
+];
 const callsToAction = [
-  { name: 'Suporte', href: '#', icon: PlayCircleIcon },
-  { name: 'Contato', href: '#', icon: PhoneIcon },
-]
- 
-
- 
+  { name: "Suporte", href: "#", icon: PlayCircleIcon },
+  { name: "Contato", href: "#", icon: PhoneIcon },
+];
 
 export default function Header() {
   const navigate = useNavigate(); // Inicialize o hook
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleSignOut = () => {
     // Lógica para logout, se necessário
-    navigate('/login'); // Redireciona para a página de login
+    navigate("/login"); // Redireciona para a página de login
   };
- 
+  const routes = [
+    { name: "Dashboard", path: "/dashboard" },
+    { name: "Analytics", path: "/analytics" },
+    { name: "Profile", path: "/profile" },
+    { name: "Settings", path: "/settings" },
+  ];
+  const handleNavigate = (path) => {
+    setDrawerOpen(false); // Fechar o Drawer
+    navigate(path); // Navegar para a rota
+  };
+
   return (
     <header className="bg-white ">
-      <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 text-gray-700">
+      <nav
+        aria-label="Global"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 text-gray-700"
+      >
         <div className="flex lg:flex-1">
           <a href="/dashboard" className="-m-1.5 p-1.5">
             <span className=" font-semibold text-gray-700">MAKER PRO</span>
@@ -76,7 +115,10 @@ export default function Header() {
           <Popover className="relative">
             <PopoverButton className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-700">
               Dados Analitícos
-              <ChevronDownIcon aria-hidden="true" className="size-5 flex-none text-gray-400" />
+              <ChevronDownIcon
+                aria-hidden="true"
+                className="size-5 flex-none text-gray-400"
+              />
             </PopoverButton>
 
             <PopoverPanel
@@ -90,10 +132,16 @@ export default function Header() {
                     className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm/6 hover:bg-gray-50"
                   >
                     <div className="flex size-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                      <item.icon aria-hidden="true" className="size-6 text-gray-600 group-hover:text-indigo-600" />
+                      <item.icon
+                        aria-hidden="true"
+                        className="size-6 text-gray-600 group-hover:text-indigo-600"
+                      />
                     </div>
                     <div className="flex-auto">
-                      <a href={item.href} className="block font-semibold text-gray-900">
+                      <a
+                        href={item.href}
+                        className="block font-semibold text-gray-900"
+                      >
                         {item.name}
                         <span className="absolute inset-0" />
                       </a>
@@ -109,7 +157,10 @@ export default function Header() {
                     href={item.href}
                     className="flex items-center justify-center gap-x-2.5 p-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100"
                   >
-                    <item.icon aria-hidden="true" className="size-5 flex-none text-gray-400" />
+                    <item.icon
+                      aria-hidden="true"
+                      className="size-5 flex-none text-gray-400"
+                    />
                     {item.name}
                   </a>
                 ))}
@@ -120,32 +171,36 @@ export default function Header() {
           <a href="#" className="text-sm/6 font-semibold text-gray-700">
             Dashboard
           </a>
-      
+
           <a href="#" className="text-sm/6 font-semibold text-gray-700">
             Company
           </a>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3">
-        <a href="#" className="text-sm/6 font-semibold text-gray-700">
+          <a href="#" className="text-sm/6 font-semibold text-gray-700">
             Usuário |
           </a>
-          
-          <a href="#" className="text-sm/6 font-semibold text-gray-700" onClick={handleSignOut}>
+
+          <a
+            href="#"
+            className="text-sm/6 font-semibold text-gray-700"
+            onClick={handleSignOut}
+          >
             Sair <span aria-hidden="true">&rarr;</span>
           </a>
         </div>
       </nav>
-      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+      <Dialog
+        open={mobileMenuOpen}
+        onClose={setMobileMenuOpen}
+        className="lg:hidden"
+      >
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <a href="#" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
-                alt=""
-                src="img/CA.png"
-                className="h-8 w-auto"
-              />
+              <img alt="" src="img/CA.png" className="h-8 w-auto" />
             </a>
             <button
               type="button"
@@ -162,7 +217,10 @@ export default function Header() {
                 <Disclosure as="div" className="-mx-3">
                   <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
                     Product
-                    <ChevronDownIcon aria-hidden="true" className="size-5 flex-none group-data-[open]:rotate-180" />
+                    <ChevronDownIcon
+                      aria-hidden="true"
+                      className="size-5 flex-none group-data-[open]:rotate-180"
+                    />
                   </DisclosureButton>
                   <DisclosurePanel className="mt-2 space-y-2">
                     {[...products, ...callsToAction].map((item) => (
@@ -210,5 +268,5 @@ export default function Header() {
         </DialogPanel>
       </Dialog>
     </header>
-  )
+  );
 }
