@@ -1,18 +1,18 @@
 "use client";
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Dialog,
   DialogPanel,
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
-  Popover,
-  PopoverButton,
   PopoverGroup,
-  PopoverPanel,
+  Dialog,
+  DialogBackdrop,
+  DialogTitle,
+  TransitionChild,
 } from "@headlessui/react";
+
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -27,6 +27,7 @@ import {
   PhoneIcon,
   PlayCircleIcon,
 } from "@heroicons/react/20/solid";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 const products = [
   {
@@ -76,43 +77,56 @@ export default function Header() {
   };
   const routes = [
     { name: "Dashboard", path: "/dashboard" },
-    { name: "Analytics", path: "/analytics" },
-    { name: "Profile", path: "/profile" },
-    { name: "Settings", path: "/settings" },
+    { name: "Analises", path: "/analytics" },
+    { name: "Perfil", path: "/profile" },
+    { name: "Configurações", path: "/settings" },
   ];
   const handleNavigate = (path) => {
     setDrawerOpen(false); // Fechar o Drawer
     navigate(path); // Navegar para a rota
   };
+  const closeDialog = () => {
+    setDrawerOpen(false); // Fechar o Drawer
+  };
 
   return (
-    <header className="bg-white ">
+    <header className="bg-[#001f3f] ">
       <nav
         aria-label="Global"
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 text-gray-700"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 text-white"
       >
-        <div className="flex lg:flex-1">
+        <div className="absolute left-0 top-0 p-4">
+          <button
+            type="button"
+            onClick={() => setDrawerOpen(true)}
+            className="inline-flex items-center justify-center rounded-md p-2.5 text-white"
+          >
+            <Bars3Icon className="h-6 w-6" />
+          </button>
+        </div>
+
+        <div className="flex flex-1 justify-center lg:justify-start">
           <a href="/dashboard" className="-m-1.5 p-1.5">
-            <span className=" font-semibold text-gray-700">MAKER PRO</span>
+            <span className="font-semibold">WALKER PRO</span>
             {/* <img
-              alt=""
-              src="img/CA.png"
-              className="h-8 w-auto"
-            /> */}
+        alt=""
+        src="img/CA.png"
+        className="h-8 w-auto"
+      /> */}
           </a>
         </div>
         <div className="flex lg:hidden">
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 "
           >
             <span className="sr-only">Open main menu</span>
             <Bars3Icon aria-hidden="true" className="size-6" />
           </button>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12 text-gray-700">
-          <Popover className="relative">
+        <PopoverGroup className="hidden lg:flex lg:gap-x-12 ">
+          {/* <Popover className="relative">
             <PopoverButton className="flex items-center gap-x-1 text-sm/6 font-semibold text-gray-700">
               Dados Analitícos
               <ChevronDownIcon
@@ -166,24 +180,28 @@ export default function Header() {
                 ))}
               </div>
             </PopoverPanel>
-          </Popover>
+          </Popover> */}
 
-          <a href="#" className="text-sm/6 font-semibold text-gray-700">
+          {/* <a href="#" className="text-sm/6 font-semibold text-gray-700">
             Dashboard
-          </a>
+          </a> */}
 
-          <a href="#" className="text-sm/6 font-semibold text-gray-700">
+          {/* <a href="#" className="text-sm/6 font-semibold text-gray-700">
             Company
-          </a>
+          </a> */}
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3">
-          <a href="#" className="text-sm/6 font-semibold text-gray-700">
+          <a
+            href="/profile-client"
+            className="flex items-center font-bold tracking-tight   font-semibold "
+          >
+            <UserCircleIcon className="h-6 w-6 text-white mr-2" />
             Usuário |
           </a>
 
           <a
             href="#"
-            className="text-sm/6 font-semibold text-gray-700"
+            className="text-sm/6 font-semibold "
             onClick={handleSignOut}
           >
             Sair <span aria-hidden="true">&rarr;</span>
@@ -266,6 +284,58 @@ export default function Header() {
             </div>
           </div>
         </DialogPanel>
+      </Dialog>
+
+      {/* Drawer - Lado Esquerdo */}
+      <Dialog open={drawerOpen} onClose={closeDialog} className="relative z-10">
+        {/* Backdrop */}
+        <div className="fixed inset-0 bg-black bg-opacity-25 transition-opacity" />
+
+        {/* Drawer Content */}
+        <div className="fixed inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden">
+            {/* Container para o Drawer no lado esquerdo */}
+            <div className="pointer-events-none fixed inset-y-0 left-0 flex max-w-full pr-10">
+              <DialogPanel
+                transition
+                className="pointer-events-auto relative w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:-translate-x-full sm:duration-700 bg-[#001f3f]" // Cor aplicada aqui
+              >
+                {/* Botão de Fechar */}
+                <div className="absolute right-0 top-0 -mr-8 flex pr-2 pt-4 sm:-mr-10 sm:pr-4">
+                  <button
+                    type="button"
+                    onClick={() => closeDialog(false)}
+                    className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                  >
+                    <span className="sr-only">Fechar</span>
+                    <XMarkIcon aria-hidden="true" className="h-6 w-6" />
+                  </button>
+                </div>
+
+                {/* Conteúdo do Drawer */}
+                <div className="flex h-full flex-col overflow-y-scroll py-6 text-white">
+                  <div className="px-4 sm:px-6">
+                    <h2 className="text-lg font-medium">Menu</h2>
+                  </div>
+                  <div className="mt-6 relative flex-1 px-4 sm:px-6">
+                    <ul>
+                      {routes.map((route) => (
+                        <li key={route.name} className="mb-4">
+                          <button
+                            onClick={() => handleNavigate(route.path)}
+                            className="text-left block w-full px-4 py-2 text-white hover:bg-gray-700 rounded-lg"
+                          >
+                            {route.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </DialogPanel>
+            </div>
+          </div>
+        </div>
       </Dialog>
     </header>
   );

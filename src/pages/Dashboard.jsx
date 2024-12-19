@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
+//components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ChatComponent from "../components/chat/ChatComponent";
 // import {
 //   faEdit,
 //   faTrash,
@@ -10,6 +11,42 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
+  const [videos, setVideos] = useState([]);
+
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const files = Array.from(e.dataTransfer.files);
+    const videoFiles = files.filter((file) => file.type.startsWith("video/"));
+
+    if (videoFiles.length) {
+      setVideos((prev) => [...prev, ...videoFiles]);
+    }
+  };
+
+  const handleFileSelect = (e) => {
+    const files = Array.from(e.target.files);
+    const videoFiles = files.filter((file) => file.type.startsWith("video/"));
+
+    if (videoFiles.length) {
+      setVideos((prev) => [...prev, ...videoFiles]);
+    }
+  };
+
+  const openClick = () => {
+    setModal(true); // Abre a modal
+  };
+
+  const closeModal = () => {
+    setModal(false); // Fecha a modal
+  };
 
   // objeto mocado
   const stores = [
@@ -23,16 +60,19 @@ export default function Dashboard() {
   };
   return (
     <>
-      <Header />
-      <div className="bg-gray-50 py-24 sm:py-24">
+      <div className="bg-gray-100 py-24 sm:py-24">
+        <ChatComponent />
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
-          <p className="mx-auto  max-w-lg text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
-            Tudo que você precisa para analisar a loja
+          <p className="   text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
+            Analise dados reais desenvolvidos pela Inteligência Aritificial
           </p>
           <div className="mt-10 grid gap-4 sm:mt-16 lg:grid-cols-3 lg:grid-rows-2">
             <div className="relative lg:row-span-2">
               <div className="absolute inset-px rounded-lg bg-white lg:rounded-l-[2rem]"></div>
-              <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
+              <div
+                className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]"
+                onClick={openClick}
+              >
                 <div className="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
                   <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
                     Inserir dados
@@ -61,15 +101,15 @@ export default function Dashboard() {
               <div className="absolute inset-px rounded-lg bg-white max-lg:rounded-t-[2rem]"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] max-lg:rounded-t-[calc(2rem+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
-                    Performace
-                  </p>
-                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+                  {/* <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
+                    GRAFICOS FUTUROS
+                  </p> */}
+                  {/* <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
                     Esta é a porcentagem que reflete o volume de informações já
                     registradas, garantindo maior eficiência e organização no
                     processamento. Continue alimentando o sistema para atingir
                     100% e aproveitar ao máximo todos os recursos disponíveis.
-                  </p>
+                  </p> */}
                 </div>
                 <div className="flex flex-1 items-center justify-center px-8 max-lg:pb-12 max-lg:pt-10 sm:px-10 lg:pb-2">
                   {/* linechart */}
@@ -86,7 +126,7 @@ export default function Dashboard() {
               <div className="absolute inset-px rounded-lg bg-white"></div>
               <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)]">
                 <div className="px-8 pt-8 sm:px-10 sm:pt-10">
-                  <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
+                  {/* <p className="mt-2 text-lg font-medium tracking-tight text-gray-950 max-lg:text-center">
                     Segurança de dados
                   </p>
                   <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
@@ -94,7 +134,7 @@ export default function Dashboard() {
                     prioridade. O processamento ocorre em ambiente seguro,
                     garantindo confidencialidade e uso exclusivo para os fins
                     especificados.
-                  </p>
+                  </p> */}
                 </div>
                 <div className="flex flex-1 items-center [container-type:inline-size] max-lg:py-6 lg:pb-2">
                   <img
@@ -120,9 +160,6 @@ export default function Dashboard() {
                 <div className="relative min-h-[30rem] w-full grow">
                   <div className="absolute bottom-0 left-10 right-0 top-10 overflow-hidden rounded-tl-xl bg-white shadow-2xl">
                     <div className="flex flex-col items-center bg-white ring-1 space-y-4 py-6">
-                      <div className="text-gray-800 font-bold text-lg">
-                        SCAN STORE - 10/02/2024
-                      </div>
                       {/* Objetos das lojas cadastradas pelo backend */}
                       {stores.map((store) => (
                         <div
@@ -135,8 +172,8 @@ export default function Dashboard() {
                           }}
                           onClick={() => handleClick(store)}
                         >
-                          <span className="bg-white bg-opacity-75 px-4 py-2 rounded-lg">
-                            {store.name}
+                          <span className="bg-white bg-opacity-75 px-4 py-2 rounded-lg ">
+                            CLIQUE AQUI
                           </span>
                         </div>
                       ))}
@@ -149,6 +186,75 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {modal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div
+            className="bg-white p-6 rounded-lg shadow-lg w-96"
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          >
+            <h2 className="text-lg font-bold mb-4">Upload de Vídeos</h2>
+
+            {/* Área de Drag and Drop */}
+            <div
+              className="border-2 border-dashed border-gray-400 rounded-lg p-6 text-center mb-4"
+              style={{ height: "150px" }}
+            >
+              <p className="text-gray-600">
+                Arraste e solte arquivos de vídeo aqui
+              </p>
+              <p className="text-sm text-gray-400">ou</p>
+              <label
+                htmlFor="fileInput"
+                className="text-blue-500 cursor-pointer underline"
+              >
+                selecione arquivos do seu dispositivo
+              </label>
+              <input
+                id="fileInput"
+                type="file"
+                accept="video/*"
+                multiple
+                onChange={handleFileSelect}
+                className="hidden"
+              />
+            </div>
+
+            {/* Lista de vídeos */}
+            {videos.length > 0 && (
+              <div className="mt-4">
+                <h3 className="text-sm font-bold mb-2">Vídeos selecionados:</h3>
+                <ul className="list-disc list-inside text-gray-700">
+                  {videos.map((video, index) => (
+                    <li key={index}>{video.name}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Botões de Ação */}
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={closeModal}
+                className="bg-red-500 text-white px-4 py-2 rounded-lg mr-2"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={() => {
+                  console.log("Vídeos para upload:", videos);
+                  closeModal();
+                }}
+                className="bg-green-500 text-white px-4 py-2 rounded-lg"
+              >
+                Enviar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

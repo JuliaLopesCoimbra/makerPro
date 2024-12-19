@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "../index.css";
 //components
-import Input from "../components/Input";
+import Input from "../components/Input/Input.jsx";
 import { toast } from "react-toastify";
 //services
 import { API_URL_USER } from "../services/api.ts";
@@ -80,59 +80,70 @@ const Login = () => {
 
   return (
     <>
-     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-screen-md flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
-        {/* Lado Esquerdo */}
-        <div className="md:w-1/2 p-8 flex flex-col justify-center">
-          <h1 className="text-3xl font-bold text-gray-800 mb-4">Faça Login</h1>
-          <p className="text-gray-600 mb-6">Acesse sua conta para continuar.</p>
-          <form className="space-y-4" onSubmit={handleLogin}>
-            <div>
-              <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
-                Email
-              </label>
-              <input
-                // type="email"
-                id="email"
-                placeholder="Digite seu email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-300 focus:outline-none"
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="block text-gray-700 font-medium mb-2">
-                Senha
-              </label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Digite sua senha"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-300 focus:outline-none"
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white font-medium py-2 rounded-lg hover:bg-blue-600 transition duration-300"
-            >
-              Entrar
-            </button>
-          </form>
-          <p className="text-sm text-gray-500 mt-4">
-            Não tem uma conta? <a href="#" className="text-blue-500 hover:underline">Cadastre-se</a>
-          </p>
+      <div className="flex items-center justify-center min-h-screen bg-[#021529]">
+        <div className="w-full max-w-screen-md flex flex-col md:flex-row bg-white shadow-lg rounded-lg overflow-hidden">
+          <div className="md:w-1/2 p-8 flex flex-col justify-center">
+            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+              Faça Login
+            </h1>
+            <p className="text-gray-600 mb-6">
+              Acesse sua conta para continuar.
+            </p>
+            <form className="space-y-4" onSubmit={handleLogin}>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-gray-700 font-medium mb-2"
+                >
+                  Email
+                </label>
+                <input
+                  // type="email"
+                  id="email"
+                  placeholder="Digite seu email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-300 focus:outline-none"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-gray-700 font-medium mb-2"
+                >
+                  Senha
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Digite sua senha"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring focus:ring-blue-300 focus:outline-none"
+                />
+              </div>
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white font-medium py-2 rounded-lg hover:bg-blue-600 transition duration-300"
+              >
+                Entrar
+              </button>
+            </form>
+            <p className="text-sm text-gray-500 mt-4">
+              Não tem uma conta?{" "}
+              <a href="#" className="text-blue-500 hover:underline">
+                Cadastre-se
+              </a>
+            </p>
+          </div>
+          <div
+            className="md:w-1/2 h-64 md:h-auto bg-cover bg-center"
+            style={{
+              backgroundImage: "url('img/homeClothes.jpg')",
+            }}
+          ></div>
         </div>
-
-        {/* Lado Direito */}
-        <div
-          className="md:w-1/2 h-64 md:h-auto bg-cover bg-center"
-          style={{ backgroundImage: "url('https://via.placeholder.com/600x400')" }}
-        ></div>
       </div>
-    </div>
-
     </>
   );
 };
