@@ -28,33 +28,37 @@ const ChatComponent = () => {
 
   return (
     <div className="chat-container">
-      <div className={`chat-box ${isOpen ? "open" : ""}`}>
-        <div className="chat-header">
-          <span>Chat</span>
-          <button className="close-btn" onClick={toggleChat}>
-            ×
-          </button>
+      {isOpen && (
+        <div className={`chat-box open`}>
+          <div className="chat-header">
+            <span>Chat</span>
+            <button className="close-btn" onClick={toggleChat}>
+              ×
+            </button>
+          </div>
+          <div className="chat-messages">
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`chat-message ${
+                  msg.sender === "user" ? "user" : "bot"
+                }`}
+              >
+                {msg.text}
+              </div>
+            ))}
+          </div>
+          <div className="chat-input">
+            <input
+              type="text"
+              placeholder="Digite sua mensagem..."
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <button onClick={handleSend}>Enviar</button>
+          </div>
         </div>
-        <div className="chat-messages">
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`chat-message ${msg.sender === "user" ? "user" : "bot"}`}
-            >
-              {msg.text}
-            </div>
-          ))}
-        </div>
-        <div className="chat-input">
-          <input
-            type="text"
-            placeholder="Digite sua mensagem..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <button onClick={handleSend}>Enviar</button>
-        </div>
-      </div>
+      )}
       <div className="chat-icon" onClick={toggleChat}>
         <FontAwesomeIcon icon={faComments} size="2x" />
       </div>

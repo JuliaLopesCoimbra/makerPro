@@ -3,6 +3,9 @@
   bottom: 20px;
   right: 20px;
   z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  
 }
 
 .chat-icon {
@@ -17,6 +20,7 @@
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s;
+  
 }
 
 .chat-icon:hover {
@@ -24,9 +28,7 @@
 }
 
 .chat-box {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
+  margin-right: 10px; /* Espaço entre o chat e o ícone */
   width: 300px;
   max-height: 400px;
   background-color: white;
@@ -34,6 +36,7 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: none;
   flex-direction: column;
+  
 }
 
 .chat-box.open {

@@ -61,7 +61,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="bg-gray-100 py-24 sm:py-24">
-        <ChatComponent />
+       
         <div className="mx-auto max-w-2xl px-6 lg:max-w-7xl lg:px-8">
           <p className="   text-balance text-center text-4xl font-semibold tracking-tight text-gray-950 sm:text-5xl">
             Analise dados reais desenvolvidos pela Inteligência Aritificial

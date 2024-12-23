@@ -1,73 +1,84 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { AuthProvider, useAuth } from "./context/AuthContext";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Section from "./pages/Section";
 import SectionDetails from "./pages/Sections/SectionDetails";
 import SectionArea from "./pages/Sections/SectionArea";
-import Header from "./components/Header"; // Importando o Header
-import Footer from "./components/Footer"; // Importando o Footer
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import ChatComponent from "./components/chat/ChatComponent";
+import "./App.css";
+
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
 
 function App() {
   return (
-    <>
-      {/* Configurações globais do Toast */}
-      <ToastContainer position="top-right" autoClose={3000} />
+    <AuthProvider>
       <Router>
         <div>
+          <ChatComponent />
           <Routes>
-            {/* Login sem Header e Footer */}
-            <Route path="/" element={<Login />} />
+            {/* Rota de Login */}
             <Route path="/login" element={<Login />} />
 
-            {/* Rotas com Header e Footer */}
+            {/* Rotas protegidas */}
             <Route
               path="/dashboard"
               element={
-                <>
-                  <Header />
-                  <Dashboard />
-                  <Footer />
-                </>
+                <ProtectedRoute>
+                  <>
+                    <Header />
+                    <Dashboard />
+                    <Footer />
+                  </>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/section/:name"
               element={
-                <>
-                  <Header />
-                  <Section />
-                  <Footer />
-                </>
+                <ProtectedRoute>
+                  <>
+                    <Header />
+                    <Section />
+                    <Footer />
+                  </>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/section-area"
               element={
-                <>
-                  <Header />
-                  <SectionArea />
-                  <Footer />
-                </>
+                <ProtectedRoute>
+                  <>
+                    <Header />
+                    <SectionArea />
+                    <Footer />
+                  </>
+                </ProtectedRoute>
               }
             />
             <Route
               path="/section-details"
               element={
-                <>
-                  <Header />
-                  <SectionDetails />
-                  <Footer />
-                </>
+                <ProtectedRoute>
+                  <>
+                    <Header />
+                    <SectionDetails />
+                    <Footer />
+                  </>
+                </ProtectedRoute>
               }
             />
           </Routes>
         </div>
       </Router>
-    </>
+    </AuthProvider>
   );
 }
 
